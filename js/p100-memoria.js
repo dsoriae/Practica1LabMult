@@ -3,7 +3,7 @@ var separacioH=20, separacioV=20;
 var nFiles=1, nColumnes=1;
 
 var jocCartes = [
-    'carta14', 
+    'carta14',
 ];
 
 $(function(){
