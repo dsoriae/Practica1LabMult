@@ -27,6 +27,7 @@ $(function(){
     });
 
     for (f; f <= nFiles; f++) {
+        c=1;
         for (c; c <= nColumnes; c++) {
             
             carta=$("#f"+f+"c"+c);
