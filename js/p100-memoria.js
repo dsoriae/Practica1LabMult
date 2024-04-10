@@ -15,8 +15,12 @@ $(function(){
     alcadaCarta=$(".carta").height();
     // mida del tauler
     $("#tauler").css({
-        "width" : "120px",
-        "height": "160px"
+        /* "width" : "120px",
+        "height": "160px" */
+
+        //Para ajustar el tablero 2x2, 4x4, etc. Multiplicar las dimensiones.
+        "width" : "240px",
+        "height": "312px"
     });
 
     carta=$("#f"+f+"c"+c);
