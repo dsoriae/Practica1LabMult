@@ -58,14 +58,16 @@ body {
     transform: rotate3d(0,1,0,0deg);
 }
 
+/*------------------------------------------------CARTAS (DECK)----------------------------------------------------------------------*/
+
 /* deck */
 /* fila 120 - columna 80) */
+/*
 .carta1 {background-position: 0 0;}
 .carta2 {background-position: -80px 0;} 
 .carta3 {background-position: -160px 0;}
 .carta4 {background-position: -240px 0;}
 .carta5 {background-position: -320px 0;}
-
 .carta6 {background-position: -400px 0;}
 .carta7 {background-position: -480px 0;}
 .carta8 {background-position: -560px 0;}
@@ -74,8 +76,6 @@ body {
 .carta11 {background-position: -800px 0;}
 .carta12 {background-position: -880px 0;}
 .carta13 {background-position: -960px 0;}
-
-/*...*/
 .carta14 {background-position: 0 -120;}
 .carta15 {background-position: -80px -120px;}
 .carta16 {background-position: -160px -120px;}
@@ -86,8 +86,6 @@ body {
 .carta21 {background-position: -560px -120px;}
 .carta22 {background-position: -640px -120px;}
 .carta23 {background-position: -720px -120px;}
-
-/*...*/
 .carta24 {background-position: -800px -120px;}
 .carta25 {background-position: -880px -120px;}
 .carta26 {background-position: -960px -120px;}
@@ -98,10 +96,10 @@ body {
 .carta31 {background-position: -1360px -120px;}
 .carta32 {background-position: -1440px -120px;}
 .carta33 {background-position: -1520px -120px;}
+*/
 
 
-/*...*/
-
+/*------------------------------------------------OTRAS CARTAS (POKEMON)----------------------------------------------------------------------*/
 /* pokemon */
 /* fila 111 - columna 111 
 .carta1{background-position:    0       0; }
@@ -114,6 +112,7 @@ body {
 .carta8{background-position:   -0    -111px; }
 
 
+/*------------------------------------------------OTRAS CARTAS (POKER 1)----------------------------------------------------------------------*/
 /* poker1 */
 /* fila 124 - columna 79 
 .carta1{background-position:    0     0  ; }
