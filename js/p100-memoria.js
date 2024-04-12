@@ -1,44 +1,53 @@
 var separacioH=20, separacioV=20;
-var nFiles=4, nColumnes=4;
-
-/* var jocCartes = [
-    'carta14',
-    'carta10',
-    'carta2',
-    'carta5'
-]; */
-
+var nFiles, nColumnes;
 var jocCartes = [];
 
 $(function(){
-    var f, c, carta;
-    //fila
-    f=1;
-    //columna
-    c=1;
 
+    $('#tauler').hide();
+    cargarArrayCartas();
+
+});
+
+function cargarArrayCartas() {
     for (let i = 1; i <= 33; i++) {
         jocCartes[i] = 'carta'+i;
     }
+}
 
-    // mida del tauler
-    $("#tauler").css({
-        //Per ajustar el tauler 2x2, 4x4, etc. Multiplicar les dimensions.
-        
-        //1x1
-        /*
-        "width" : "120px",
-        "height": "160px" 
-        */
+function mostrarTablero(medida) {
+    if (medida == 2) {
+        nFiles = 2; nColumnes = 2;
+        $("#tauler").css({
+            //2x2
+            "width" : "220px",
+            "height": "300px"
+        });
+    } else if(medida == 4 ){
+        nFiles = 4; nColumnes = 4;
+        $("#tauler").css({
+            //4x4
+            "width" : "420px",
+            "height": "580px"
+        });
+    } else{
+        nFiles = 6; nColumnes = 6;
+        $("#tauler").css({
+            //6x6
+            "width" : "620px",
+            "height": "860px"
+        });
+    }
 
-        //2x2
-        /* "width" : "220px",
-        "height": "320px" */
-        
-        //4x4
-        "width" : "420px",
-        "height": "580px"
-    });
+    $('#tauler').show();
+    $('#inici').hide();
+    mostrarCartas();
+}
+
+function mostrarCartas() {
+    var f, c, carta;
+    f=1; //fila
+    c=1; //columna
 
     for (f; f <= nFiles; f++) {
         c=1;
@@ -68,4 +77,4 @@ $(function(){
     $(".carta").on("click",function(){
         $(this).toggleClass("carta-girada");
     });
-});
+}
