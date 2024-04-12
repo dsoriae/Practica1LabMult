@@ -1,5 +1,5 @@
 var separacioH=20, separacioV=20;
-var nFiles=2, nColumnes=2;
+var nFiles=4, nColumnes=4;
 
 /* var jocCartes = [
     'carta14',
@@ -17,7 +17,6 @@ $(function(){
     //columna
     c=1;
 
-
     for (let i = 1; i <= 33; i++) {
         jocCartes[i] = 'carta'+i;
     }
@@ -33,12 +32,12 @@ $(function(){
         */
 
         //2x2
-        "width" : "240px",
-        "height": "320px"
-
+        /* "width" : "220px",
+        "height": "320px" */
+        
         //4x4
-        /* "width" : "480px",
-        "height": "640px" */
+        "width" : "420px",
+        "height": "580px"
     });
 
     for (f; f <= nFiles; f++) {
