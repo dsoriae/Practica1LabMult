@@ -6,6 +6,7 @@ $(function(){
 
     $('#tauler').hide();
     cargarArrayCartas();
+    pedirMedidasTablero();
 
 });
 
@@ -13,6 +14,14 @@ function cargarArrayCartas() {
     for (let i = 1; i <= 33; i++) {
         jocCartes[i] = 'carta'+i;
     }
+}
+
+function pedirMedidasTablero() {
+    $('.btnMedida').click(function (e) { 
+        e.preventDefault();
+        mostrarTablero(e.target.id);
+    });
+    
 }
 
 function mostrarTablero(medida) {
