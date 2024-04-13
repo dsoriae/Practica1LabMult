@@ -79,34 +79,26 @@ function mostrarCartas() {
                 "left" :  ((c-1)*($(carta).width()+separacioH)+separacioH)+"px",
                 "top"  :  ((f-1)*($(carta).height()+separacioV) +separacioV)+"px"
             });
+
+            randomCarta(carta);
+
         }
     }
-
-    for (let i = 0; i < totalCartas; i++) {
-        randomCarta();
-    }
-
-    console.log(cartasJuego)
-
+    
     $(".carta").on("click",function(){
         $(this).toggleClass("carta-girada");
     });
 }
 
-function caras(carta, totalCartas) {
-    for (let i = 0; i < totalCartas; i++) {
-        randomCarta();
-        carta.find(".davant").addClass(cartasJuego[i]);
-    }
-}
-
-function randomCarta() {
+function randomCarta(carta) {
     let rnd = Math.floor((Math.random()*33) + 1);
-    let values = cartasJuego.filter(value => value === rnd);
-    if (values.length < 2) {
+    let valores = cartasJuego.filter(value=>value===rnd);
+    console.log(valores.length);
+    if (valores.length<2) {
         cartasJuego.push(rnd);
+        carta.find(".davant").addClass(jocCartes[rnd]);
     } else{
-        randomCarta();
+        randomCarta(carta);
     }
     
 }
