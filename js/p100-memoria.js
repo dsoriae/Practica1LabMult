@@ -60,6 +60,7 @@ function mostrarCartas() {
     c=1; //columna
     totalCartas = nFiles*nColumnes;
     
+    random(totalCartas);;
 
     for (f; f <= nFiles; f++) {
         c=1;
@@ -80,7 +81,10 @@ function mostrarCartas() {
                 "top"  :  ((f-1)*($(carta).height()+separacioV) +separacioV)+"px"
             });
 
-            randomCarta(carta);
+            for (let i = 0; i < totalCartas; i++) {
+                randomCarta(carta, i);
+                
+            }
 
         }
     }
@@ -90,15 +94,22 @@ function mostrarCartas() {
     });
 }
 
-function randomCarta(carta) {
-    let rnd = Math.floor((Math.random()*33) + 1);
-    let valores = cartasJuego.filter(value=>value===rnd);
-    console.log(valores.length);
+function randomCarta(carta, cont) {
+
+    let valores = cartasJuego.filter(value=>value===cartasJuego[cont]);
+
     if (valores.length<2) {
-        cartasJuego.push(rnd);
-        carta.find(".davant").addClass(jocCartes[rnd]);
+        carta.find(".davant").addClass(cartasJuego[cont]);
     } else{
         randomCarta(carta);
     }
     
+}
+
+function random(cartas) {
+    let rnd;
+    for (let i = 0; i < (cartas/2); i++) {
+        rnd = Math.floor((Math.random()*33) + 1);
+        cartasJuego.push(rnd);
+    }
 }
