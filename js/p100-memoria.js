@@ -59,6 +59,7 @@ function mostrarCartas() {
     f=1; //fila
     c=1; //columna
     totalCartas = nFiles*nColumnes;
+    barajarCartas();
     var num = totalCartas/2;
 
     for (f; f <= nFiles; f++) {
@@ -81,13 +82,22 @@ function mostrarCartas() {
             });
 
             random(carta, num);
-
         }
     }
     
     $(".carta").on("click",function(){
         $(this).toggleClass("carta-girada");
     });
+}
+
+function barajarCartas() {
+    let index = jocCartes.length;
+    while (index != 0) {
+        let rnd = Math.floor(Math.random() * index);
+        index--;
+
+        [jocCartes[index], jocCartes[rnd]] = [jocCartes[rnd], jocCartes[index]];
+    }
 }
 
 
