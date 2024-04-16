@@ -1,6 +1,6 @@
 var separacioH=20, separacioV=20;
 var nFiles, nColumnes;
-var jocCartes = [];
+var arrayCartes = [];
 var cartasJuego = [];
 
 $(function(){
@@ -13,7 +13,7 @@ $(function(){
 
 function cargarArrayCartas() {
     for (let i = 1; i <= 33; i++) {
-        jocCartes[i] = 'carta'+i;
+        arrayCartes[i] = 'carta'+i;
     }
 }
 
@@ -55,12 +55,15 @@ function mostrarTablero(medida) {
 }
 
 function mostrarCartas() {
-    var f, c, carta, totalCartas;
+    var f, c, carta, totalCartas, divCartas;
     f=1; //fila
     c=1; //columna
-    totalCartas = nFiles*nColumnes;
+    totalCartas = nFiles*nColumnes; //numero de cartas totales
+    divCartas = totalCartas/2; //numero de cartas/2
+
+
     barajarCartas();
-    var num = totalCartas/2;
+    
 
     for (f; f <= nFiles; f++) {
         c=1;
@@ -81,7 +84,7 @@ function mostrarCartas() {
                 "top"  :  ((f-1)*($(carta).height()+separacioV) +separacioV)+"px"
             });
 
-            random(carta, num);
+            random(carta, divCartas);
         }
     }
     
@@ -91,24 +94,23 @@ function mostrarCartas() {
 }
 
 function barajarCartas() {
-    let index = jocCartes.length;
+    let index = arrayCartes.length;
     while (index != 0) {
         let rnd = Math.floor(Math.random() * index);
         index--;
 
-        [jocCartes[index], jocCartes[rnd]] = [jocCartes[rnd], jocCartes[index]];
+        [arrayCartes[index], arrayCartes[rnd]] = [arrayCartes[rnd], arrayCartes[index]];
     }
 }
 
 
-function random(carta, num) {
-    let rnd = Math.floor((Math.random() * num) + 1);
+function random(carta, divCartas) {
+    let rnd = Math.floor((Math.random() * divCartas) + 1);
     let valores = cartasJuego.filter(value=>value===rnd);
     if (valores.length<2) {
         cartasJuego.push(rnd);
-        carta.find(".davant").addClass(jocCartes[rnd]);
+        carta.find(".davant").addClass(arrayCartes[rnd]);
     } else{
-        random(carta, num);
+        random(carta, divCartas);
     }
-    
 }
