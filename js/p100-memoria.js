@@ -8,7 +8,7 @@ $(function(){
     $('#tauler').hide();
     cargarArrayCartas();
     pedirMedidasTablero();
-
+    
 });
 
 function cargarArrayCartas() {
@@ -25,31 +25,28 @@ function pedirMedidasTablero() {
 }
 
 function mostrarTablero(medida) {
+    let width, height;
     if (medida == 2) {
         nFiles = 2; nColumnes = 2;
-        $("#tauler").css({
-            //2x2
-            "width" : "220px",
-            "height": "300px"
-        });
+        width = "220px"; height = "300px";
+
     } else if(medida == 4 ){
         nFiles = 4; nColumnes = 4;
-        $("#tauler").css({
-            //4x4
-            "width" : "420px",
-            "height": "580px"
-        });
+        width = "420px"; height = "580px";
+
     } else{
         nFiles = 6; nColumnes = 6;
-        $("#tauler").css({
-            //6x6
-            "width" : "620px",
-            "height": "860px"
-        });
+        width = "620px"; height = "860px";
+
     }
+    $("#tauler").css({
+        "width" : width,
+        "height": height
+    });
 
     $('#tauler').show();
     $('#inici').hide();
+
     mostrarCartas();
 }
 
