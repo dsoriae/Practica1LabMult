@@ -18,11 +18,10 @@ function cargarArrayCartas() {
 }
 
 function pedirMedidasTablero() {
-    $('.btnMedida').click(function (e) { 
+    $('.btnMedida').click(function (e) {
         e.preventDefault();
         mostrarTablero(e.target.id);
     });
-    
 }
 
 function mostrarTablero(medida) {
@@ -61,10 +60,8 @@ function mostrarCartas() {
     totalCartas = nFiles*nColumnes; //numero de cartas totales
     divCartas = totalCartas/2; //numero de cartas/2
 
-
     barajarCartas();
     
-
     for (f; f <= nFiles; f++) {
         c=1;
         for (c; c <= nColumnes; c++) {
@@ -102,7 +99,6 @@ function barajarCartas() {
         [arrayCartes[index], arrayCartes[rnd]] = [arrayCartes[rnd], arrayCartes[index]];
     }
 }
-
 
 function random(carta, divCartas) {
     let rnd = Math.floor((Math.random() * divCartas) + 1);
