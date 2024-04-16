@@ -11,6 +11,7 @@ body {
     background: #232 url(../images/table.jpg);
     margin: 0 auto;
     box-shadow: 0 -1px 0 #999, 0 1px 0 #999, inset 0;
+    
 }
 
 .carta {
@@ -100,6 +101,8 @@ body {
 
 
 /*------------------------------------------------OTRAS CARTAS (POKEMON)----------------------------------------------------------------------*/
+/*...*/
+
 /* pokemon */
 /* fila 111 - columna 111 
 .carta1{background-position:    0       0; }
