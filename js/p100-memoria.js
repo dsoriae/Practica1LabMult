@@ -57,7 +57,7 @@ function mostrarCartas() {
     totalCartas = nFiles*nColumnes; //numero de cartas totales
     divCartas = totalCartas/2; //numero de cartas/2
 
-    barajarCartas();
+    barajarCartas(arrayCartes);
     
     for (f; f <= nFiles; f++) {
         c=1;
@@ -87,7 +87,7 @@ function mostrarCartas() {
     });
 }
 
-function barajarCartas() {
+function barajarCartas() { //Barreja les cartes per tenir un ordre aleatori
     let index = arrayCartes.length;
     while (index != 0) {
         let rnd = Math.floor(Math.random() * index);
@@ -98,12 +98,15 @@ function barajarCartas() {
 }
 
 function random(carta, divCartas) {
+    //agafem un numero aleatori de l'array ja barrejada.
     let rnd = Math.floor((Math.random() * divCartas) + 1);
+    //mirem si aquest número ja està en l'array definitiu del joc.
     let valores = cartasJuego.filter(value=>value===rnd);
+    //Volem que cada número estigui repetit dues vegades.
     if (valores.length<2) {
         cartasJuego.push(rnd);
         carta.find(".davant").addClass(arrayCartes[rnd]);
-    } else{
+    } else{  //Si ja està dos vegades no el tornem a posar. I tornem a cridar la funció
         random(carta, divCartas);
     }
 }
