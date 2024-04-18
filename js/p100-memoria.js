@@ -8,9 +8,28 @@ $(function(){
     $('#tauler').hide();
     cargarArrayCartas();
     pedirMedidasTablero();
+    
 
 });
+  function cargarcuentaatras() {
+    const tiempoLimite = 30;
+    const $tiempoRestante = $('#tiempoRestante');
 
+    const intervalo = setInterval(function() {
+      tiempoLimite--;
+      $tiempoRestante.text(`Tiempo restante: ${tiempoLimite} segundos`);
+
+      // Animación de color rojo cuando se acerca el final
+      if (tiempoLimite < 10) {
+        $tiempoRestante.css('color', 'red');
+      }
+
+      if (tiempoLimite === 0) {
+        clearInterval(intervalo);
+        alert('¡Has perdido!');
+      }
+    }, 1000);
+  };
 function cargarArrayCartas() {
     for (let i = 1; i <= 33; i++) {
         arrayCartes[i] = 'carta'+i;
@@ -21,6 +40,7 @@ function pedirMedidasTablero() {
     $('.btnMedida').click(function (e) {
         e.preventDefault();
         mostrarTablero(e.target.id);
+        
     });
 }
 

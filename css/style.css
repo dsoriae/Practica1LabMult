@@ -101,6 +101,10 @@ body {
 .carta32 {background-position: -1440px -120px;}
 .carta33 {background-position: -1520px -120px;}
 
+
+#rellotge {
+    position: relative;
+}
 /*...*/
 
 /* pokemon */
