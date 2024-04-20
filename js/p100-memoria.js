@@ -106,7 +106,7 @@ function random(carta, divCartas) {
     if (valores.length<2) {
         cartasJuego.push(rnd);
         carta.find(".davant").addClass(arrayCartes[rnd]);
-    } else{  //Si ja està dos vegades no el tornem a posar. I tornem a cridar la funció
+    } else{  //Si ja està dos vegades no el tornem a posar. I tornem a cridar la funció aplicant recursivitat
         random(carta, divCartas);
     }
 }
