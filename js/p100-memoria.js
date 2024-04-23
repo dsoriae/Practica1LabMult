@@ -6,10 +6,40 @@ var cartasJuego = [];
 $(function(){
 
     $('#tauler').hide();
+    mostrarInicio();
     cargarArrayCartas();
     pedirMedidasTablero();
     
 });
+
+function mostrarInicio() {
+    $('#inici').append(
+        '<h3>Escull la dificultat del joc per començar:</h3>'+
+        '<button id="2" class="btnMedida button-1-pushable">'+
+            '<span id="2" class="button-1-shadow"></span>'+
+            '<span id="2" class="button-1-edge"></span>'+
+            '<span id="2" class="button-1-front text">'+
+                'Fàcil'+
+            '</span>'+
+        '</button>'+
+        '<br> <br>'+
+        '<button id="4" class="btnMedida button-2-pushable">'+
+            '<span id="4" class="button-2-shadow"></span>'+
+            '<span id="4" class="button-2-edge"></span>'+
+            '<span id="4" class="button-2-front text">'+
+                'Normal'+
+            '</span>'+
+        '</button>'+
+        '<br> <br>'+
+        '<button id="6" class="btnMedida button-3-pushable">'+
+            '<span id="6" class="button-3-shadow"></span>'+
+            '<span id="6" class="button-3-edge"></span>'+
+            '<span id="6" class="button-3-front text">'+
+                'Difícil'+
+            '</span>'+
+        '</button>'
+    );
+}
 
 function cargarArrayCartas() {
     for (let i = 1; i <= 33; i++) {
@@ -143,8 +173,6 @@ function finalPartida() {
             }
         });
     }, 1000);
-
-    
 }
 
 function barajarCartas() { //Barreja les cartes per tenir un ordre aleatori
