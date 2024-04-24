@@ -2,6 +2,7 @@ var separacioH=20, separacioV=20;
 var nFiles, nColumnes;
 var arrayCartes = [];
 var cartasJuego = [];
+var cartasGiradas = [];
 
 $(function(){
 
@@ -87,11 +88,38 @@ function mostrarCartas() {
             random(carta, divCartas);
         }
     }
+
+    $(".carta").on("click", function() {
+        //Comprovem si hi ha + de 2 cartes girades
+        if (!$(this).hasClass("carta-girada") && cartasGiradas.length < 2) {
+            $(this).toggleClass("carta-girada");
+            // Afegim id de carta a una array
+            cartasGiradas.push($(this).text());
     
-    $(".carta").on("click",function(){
-        $(this).toggleClass("carta-girada");
+            if (cartasGiradas.length == 2) {
+                // Mirar si els ids son iguals
+                if (cartasGiradas[0] == cartasGiradas[1]) {
+                    // Eliminar les cartes 
+                    setTimeout(function() {
+                        $(".carta-girada").fadeOut(function() {
+                            $(this).hide();
+                        });
+                    }, 1000);
+                } else {
+                    // Girar carta si no iguals
+                    setTimeout(function() {
+                        $(".carta-girada").removeClass("carta-girada");
+                    }, 1000); 
+                }
+                // Netejar array
+                cartasGiradas = [];
+            }
+        }
+
     });
+
 }
+
 
 function barajarCartas() {
     let index = arrayCartes.length;
