@@ -6,10 +6,40 @@ var cartasJuego = [];
 $(function(){
 
     $('#tauler').hide();
+    mostrarInicio();
     cargarArrayCartas();
     pedirMedidasTablero();
     
 });
+
+function mostrarInicio() {
+    $('#inici').append(
+        '<h3>Escull la dificultat del joc per començar:</h3>'+
+        '<button id="2" class="btnMedida button-1-pushable">'+
+            '<span id="2" class="button-1-shadow"></span>'+
+            '<span id="2" class="button-1-edge"></span>'+
+            '<span id="2" class="button-1-front text">'+
+                'Fàcil'+
+            '</span>'+
+        '</button>'+
+        '<br> <br>'+
+        '<button id="4" class="btnMedida button-2-pushable">'+
+            '<span id="4" class="button-2-shadow"></span>'+
+            '<span id="4" class="button-2-edge"></span>'+
+            '<span id="4" class="button-2-front text">'+
+                'Normal'+
+            '</span>'+
+        '</button>'+
+        '<br> <br>'+
+        '<button id="6" class="btnMedida button-3-pushable">'+
+            '<span id="6" class="button-3-shadow"></span>'+
+            '<span id="6" class="button-3-edge"></span>'+
+            '<span id="6" class="button-3-front text">'+
+                'Difícil'+
+            '</span>'+
+        '</button>'
+    );
+}
 
 function cargarArrayCartas() {
     for (let i = 1; i <= 33; i++) {
@@ -50,15 +80,20 @@ function mostrarTablero(medida) {
     mostrarCartas();
 }
 
+function timer() {
+    $('#timer').html('');
+    $('#timer').append('<h3>00:00</h3>');
+}
+
 function mostrarCartas() {
-    var f, c, carta, totalCartas, divCartas, cartasGiradas;
+    var f = 1, c = 1, carta, totalCartas = 0, divCartas = 0, cartasGiradas;
     f=1; //fila
     c=1; //columna
     totalCartas = nFiles*nColumnes; //numero de cartas totales
     divCartas = totalCartas/2; //numero de cartas/2
     cartasGiradas = [];
 
-    barajarCartas(arrayCartes);
+    barajarCartas();
     
     for (f; f <= nFiles; f++) {
         c=1;
@@ -82,13 +117,21 @@ function mostrarCartas() {
             random(carta, divCartas);
         }
     }
+    console.log(cartasJuego)
 
-    console.log(cartasJuego);
-    
+    //Afegim la funció click a les cartes del joc per per-les funcionar
+    funcionOnClick(cartasGiradas);
+    //Quan tenim totes les cartes en el tauler, mostrem el timer i el posem en marxa.
+    timer();
+}
+
+function funcionOnClick(cartasGiradas) {
     $(".carta").on("click",function(){
+        //contador();
+        let idCarta = $(this).find(".davant").attr("id")
         if (!$(this).hasClass("carta-girada") && cartasGiradas.length < 2) {
             $(this).toggleClass("carta-girada");
-            cartasGiradas.push($(this).find(".davant").attr("id"));
+            cartasGiradas.push(idCarta);
         }
 
         if (cartasGiradas.length == 2) {
@@ -99,6 +142,8 @@ function mostrarCartas() {
                     });
                     
                 }, 500);
+
+                vaciarCartasDeArray(idCarta);
                 
             } else{
                 setTimeout(function() {
@@ -110,24 +155,48 @@ function mostrarCartas() {
     });
 }
 
+function vaciarCartasDeArray(idCarta) {
+    for (let i = 0; i < cartasJuego.length; i++) {
+        if (cartasJuego[i] == idCarta) {
+            cartasJuego[i] = null;
+        }
+    }
+
+    cartasJuego = cartasJuego.filter(value=>value!=null);
+
+    if (cartasJuego.length === 0) {
+        finalPartida();     
+    }
+}
+
+function finalPartida() {
+    setTimeout(function() {
+        $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
+        $('.volverAJugar').click(function (e) {
+            e.preventDefault();
+            location.reload();
+        });
+    }, 1000);
+}
+
 function barajarCartas() { //Barreja les cartes per tenir un ordre aleatori
     let index = arrayCartes.length;
     while (index != 0) {
-        let rnd = Math.floor(Math.random() * index);
+        let rnd = Math.floor(Math.random() * index + 1);
         index--;
-
         [arrayCartes[index], arrayCartes[rnd]] = [arrayCartes[rnd], arrayCartes[index]];
     }
+    arrayCartes = arrayCartes.filter(value=>value!=undefined);
 }
 
 function random(carta, divCartas) {
     //agafem un numero aleatori de l'array ja barrejada.
     let rnd = Math.floor((Math.random() * divCartas) + 1);
     //mirem si aquest número ja està en l'array definitiu del joc.
-    let valores = cartasJuego.filter(value=>value===rnd);
+    let valores = cartasJuego.filter(value=>value===arrayCartes[rnd]);
     //Volem que cada número estigui repetit dues vegades.
     if (valores.length<2) {
-        cartasJuego.push(rnd);
+        cartasJuego.push(arrayCartes[rnd]);
         carta.find(".davant").addClass(arrayCartes[rnd]);
         carta.find(".davant").attr('id',arrayCartes[rnd]);
     } else{  //Si ja està dos vegades no el tornem a posar. I tornem a cridar la funció aplicant recursivitat
