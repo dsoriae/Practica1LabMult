@@ -127,6 +127,7 @@ function mostrarCartas() {
 
 function funcionOnClick(cartasGiradas) {
     $(".carta").on("click",function(){
+        //contador();
         let idCarta = $(this).find(".davant").attr("id")
         if (!$(this).hasClass("carta-girada") && cartasGiradas.length < 2) {
             $(this).toggleClass("carta-girada");
