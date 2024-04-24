@@ -2,6 +2,7 @@ var separacioH=20, separacioV=20;
 var nFiles, nColumnes;
 var arrayCartes = [];
 var cartasJuego = [];
+var clicks;
 
 $(function(){
 
@@ -117,17 +118,17 @@ function mostrarCartas() {
             random(carta, divCartas);
         }
     }
-    console.log(cartasJuego)
 
     //Afegim la funció click a les cartes del joc per per-les funcionar
     funcionOnClick(cartasGiradas);
     //Quan tenim totes les cartes en el tauler, mostrem el timer i el posem en marxa.
     timer();
+    mostrarContadorClicks(totalCartas);
 }
 
 function funcionOnClick(cartasGiradas) {
     $(".carta").on("click",function(){
-        //contador();
+        contadorClicks();
         let idCarta = $(this).find(".davant").attr("id")
         if (!$(this).hasClass("carta-girada") && cartasGiradas.length < 2) {
             $(this).toggleClass("carta-girada");
@@ -155,6 +156,20 @@ function funcionOnClick(cartasGiradas) {
     });
 }
 
+function mostrarContadorClicks(cartas) {
+    clicks = cartas * 2;
+    $('#contador').append('<h4>Clicks restantes:<span id="count">'+clicks+'</span></h4>');
+}
+
+function contadorClicks() {
+    console.log(clicks);
+    clicks--;
+    $('#count').html(clicks);
+    if (clicks == 0) {
+        finalPartida("gameOver");
+    }
+}
+
 function vaciarCartasDeArray(idCarta) {
     for (let i = 0; i < cartasJuego.length; i++) {
         if (cartasJuego[i] == idCarta) {
@@ -169,14 +184,24 @@ function vaciarCartasDeArray(idCarta) {
     }
 }
 
-function finalPartida() {
-    setTimeout(function() {
-        $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
-        $('.volverAJugar').click(function (e) {
-            e.preventDefault();
-            location.reload();
-        });
-    }, 1000);
+function finalPartida(status) {
+    if (status == "gameOver") {
+        setTimeout(function() {
+            $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
+            $('.volverAJugar').click(function (e) {
+                e.preventDefault();
+                location.reload();
+            });
+        }, 1000);
+    } else{
+        setTimeout(function() {
+            $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
+            $('.volverAJugar').click(function (e) {
+                e.preventDefault();
+                location.reload();
+            });
+        }, 1000);
+    }
 }
 
 function barajarCartas() { //Barreja les cartes per tenir un ordre aleatori
