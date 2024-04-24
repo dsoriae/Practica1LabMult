@@ -1,15 +1,18 @@
 body {
+    margin: 30px;
     text-align: center;
-    background: #9e9e9e url(../images/fons.webp);
-    color: #4A4A4A;
+    /*background: #9e9e9e url(../images/fons.webp);*/
+    background: #8cdee3 url(../images/fondo.jpeg);
+    color: #0e0d0d;
     font-family: Arial, Helvetica, sans-serif;
+    text-decoration: solid;
 }
 
 #tauler {
     border-radius: 10px;
     border: 1px solid #666;
     position: relative;
-    background: #232 url(../images/table.jpg);
+    background: rgb(204, 206, 195) url(../images/fondotablero.jpg);
     margin: 0 auto;
     box-shadow: 0 -1px 0 #999, 0 1px 0 #999, inset 0;
     
