@@ -80,8 +80,13 @@ function mostrarTablero(medida) {
     mostrarCartas();
 }
 
+function timer() {
+    $('#timer').html('');
+    $('#timer').append('<h3>00:00</h3>');
+}
+
 function mostrarCartas() {
-    var f, c, carta, totalCartas, divCartas, cartasGiradas;
+    var f = 1, c = 1, carta, totalCartas = 0, divCartas = 0, cartasGiradas;
     f=1; //fila
     c=1; //columna
     totalCartas = nFiles*nColumnes; //numero de cartas totales
@@ -89,7 +94,6 @@ function mostrarCartas() {
     cartasGiradas = [];
 
     barajarCartas();
-    console.log(arrayCartes);
     
     for (f; f <= nFiles; f++) {
         c=1;
@@ -113,9 +117,12 @@ function mostrarCartas() {
             random(carta, divCartas);
         }
     }
+    console.log(cartasJuego)
 
     //Afegim la funció click a les cartes del joc per per-les funcionar
     funcionOnClick(cartasGiradas);
+    //Quan tenim totes les cartes en el tauler, mostrem el timer i el posem en marxa.
+    timer();
 }
 
 function funcionOnClick(cartasGiradas) {
@@ -163,14 +170,10 @@ function vaciarCartasDeArray(idCarta) {
 
 function finalPartida() {
     setTimeout(function() {
-        $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button id="si" class="volverAJugar">Si</button><button id="no" class="volverAJugar">Cambiar dificultat</button>');
-        $('.volverAJugar').click(function (e) { 
+        $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
+        $('.volverAJugar').click(function (e) {
             e.preventDefault();
-            if (e.target.id == "si") {
-                mostrarCartas();
-            } else{
-                location.reload();
-            }
+            location.reload();
         });
     }, 1000);
 }
