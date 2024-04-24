@@ -110,3 +110,32 @@ function random(carta, divCartas) {
         random(carta, divCartas);
     }
 }
+
+function contadordeclicks() {
+    let numero = 0;
+    let numeromaximo;
+
+     totalCartas = nFiles * nColumns;
+    numeromaximo = totalCartas * 3;
+
+    function handleCardClick() {
+        if (numero < numeromaximo) {
+            numero++;
+            console.log(`Numero de clicks: ${numero}`);
+        } else {
+            console.log(`Maximo de clicks alcanzado: ${numeromaximo}`);
+        }
+    }
+
+    return { handleCardClick };
+}
+
+const clickCounter = contadordeclicks();
+
+
+const cardElements = document.querySelectorAll('.card');
+cardElements.forEach(card => {
+    card.addEventListener('click', () => {
+        clickCounter.handleCardClick();
+    });
+});
