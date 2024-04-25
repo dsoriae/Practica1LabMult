@@ -162,7 +162,6 @@ function mostrarContadorClicks(cartas) {
 }
 
 function contadorClicks() {
-    console.log(clicks);
     clicks--;
     $('#count').html(clicks);
     if (clicks == 0) {
@@ -187,16 +186,41 @@ function vaciarCartasDeArray(idCarta) {
 function finalPartida(status) {
     if (status == "gameOver") {
         setTimeout(function() {
-            $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
-            $('.volverAJugar').click(function (e) {
+            $('#tauler').hide();
+            $('#contador').hide();
+            $('#timer').hide();
+            $('footer').append(
+                '<h4>El Joc ha acabat! Vols tornar a jugar?</h4>'+
+                '<button id="volverAJugar" class="button-4-pushable">'+
+                    '<span id="volverAJugar" class="button-4-shadow"></span>'+
+                    '<span id="volverAJugar" class="button-4-edge"></span>'+
+                    '<span id="volverAJugar" class="button-4-front text">'+
+                        'Tornar a jugar!'+
+                    '</span>'+
+                '</button>');
+
+            $('#volverAJugar').click(function (e) {
                 e.preventDefault();
                 location.reload();
             });
         }, 1000);
+
     } else{
         setTimeout(function() {
-            $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
-            $('.volverAJugar').click(function (e) {
+            $('#tauler').hide();
+            $('#contador').hide();
+            $('#timer').hide();
+            $('footer').append(
+                '<h4>El Joc ha acabat! Vols tornar a jugar?</h4>'+
+                '<button id="volverAJugar" class="button-4-pushable">'+
+                    '<span id="volverAJugar" class="button-4-shadow"></span>'+
+                    '<span id="volverAJugar" class="button-4-edge"></span>'+
+                    '<span id="volverAJugar" class="button-4-front text">'+
+                        'Tornar a jugar!'+
+                    '</span>'+
+                '</button>');
+
+            $('#volverAJugar').click(function (e) {
                 e.preventDefault();
                 location.reload();
             });
