@@ -54,6 +54,29 @@ function pedirMedidasTablero() {
         mostrarTablero(e.target.id);
     });
 }
+function timer(totalCartas) {
+    var seconds;
+    if(totalCartas == 4){
+        seconds = 15;
+    }else if(totalCartas == 16){
+        seconds = 25;
+    }else if(totalCartas == 36){
+        seconds = 35;
+    }
+    $('#timer').html('');
+    $('#timer').append('<h4>Segundos restantes: <span id="tiempo">' + seconds + '</span></h4>');
+
+    var intervalId = setInterval(function() {
+        seconds--;
+        $('#tiempo').text(seconds);
+
+        if (seconds <= 0) {
+            clearInterval(intervalId); // Detener el intervalo cuando llegue a 0
+            finalPartida("gameOver");
+        }
+    }, 1000); // Ejecutar cada 1000 milisegundos (1 segundo)
+}
+
 
 function mostrarTablero(medida) {
     let width, height;
@@ -81,10 +104,7 @@ function mostrarTablero(medida) {
     mostrarCartas();
 }
 
-function timer() {
-    $('#timer').html('');
-    $('#timer').append('<h3>00:00</h3>');
-}
+
 
 function mostrarCartas() {
     var f = 1, c = 1, carta, totalCartas = 0, divCartas = 0, cartasGiradas;
@@ -122,7 +142,7 @@ function mostrarCartas() {
     //Afegim la funció click a les cartes del joc per per-les funcionar
     funcionOnClick(cartasGiradas);
     //Quan tenim totes les cartes en el tauler, mostrem el timer i el posem en marxa.
-    timer();
+    timer(totalCartas);
     mostrarContadorClicks(totalCartas);
 }
 
