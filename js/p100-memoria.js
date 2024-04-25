@@ -49,7 +49,7 @@ function mostrarInicio() {
 }
 
 function cargarArrayCartas() {
-    for (let i = 1; i <= 33; i++) {
+    for (let i = 0; i <= 52; i++) {
         arrayCartes[i] = 'carta'+i;
     }
 }
@@ -87,19 +87,13 @@ function mostrarTablero(medida) {
     mostrarCartas();
 }
 
-function timer() {
-    $('#timer').html('');
-    $('#timer').append('<h3>00:00</h3>');
-}
-
 function barajarCartas() { //Barreja les cartes per tenir un ordre aleatori
     let index = arrayCartes.length;
     while (index != 0) {
-        let rnd = Math.floor(Math.random() * index + 1);
+        let rnd = Math.floor(Math.random() * index);
         index--;
         [arrayCartes[index], arrayCartes[rnd]] = [arrayCartes[rnd], arrayCartes[index]];
     }
-    arrayCartes = arrayCartes.filter(value=>value!=undefined);
 }
 
 function random(carta, divCartas) {
@@ -153,8 +147,10 @@ function mostrarCartas() {
     //Afegim la funció click a les cartes del joc per per-les funcionar
     funcionOnClick(cartasGiradas);
     //Quan tenim totes les cartes en el tauler, mostrem el timer i el posem en marxa.
-    timer();
+    timer(totalCartas);
     mostrarContadorClicks(totalCartas);
+    
+    console.log(cartasJuego)
 }
 
 function funcionOnClick(cartasGiradas) {
@@ -193,9 +189,37 @@ function funcionOnClick(cartasGiradas) {
     });
 }
 
+function timer(totalCartas) {
+    var seconds;
+    if(totalCartas == 4){
+        seconds = 15;
+    }else if(totalCartas == 16){
+        seconds = 35;
+    }else if(totalCartas == 36){
+        seconds = 90;
+    }
+    $('#timer').html('');
+    $('#timer').append('<h3>Segundos restantes: <span id="tiempo">' + seconds + '</span></h3>');
+
+    var intervalId = setInterval(function() {
+
+        if (final){
+            clearInterval(intervalId);
+        }
+
+        seconds--;
+        $('#tiempo').text(seconds);
+
+        if (seconds <= 0) {
+            clearInterval(intervalId); // Detener el intervalo cuando llegue a 0
+            finalPartida("gameOver");
+        }
+    }, 1000); // Ejecutar cada 1000 milisegundos (1 segundo)
+}
+
 function mostrarContadorClicks(cartas) {
     clicks = cartas * 2;
-    $('#contador').append('<h4>Clicks restantes:<span id="count">'+clicks+'</span></h4>');
+    $('#contador').append('<h3>Clicks restantes:<span id="count">'+clicks+'</span></h3>');
 }
 
 function contadorClicks() {
@@ -225,7 +249,9 @@ function finalPartida(status) {
     setTimeout(function(){
         $('#tauler').html('');
         $('#tauler').hide();
-    }, 1600);
+        final = true;
+
+    }, 1500);
     
     if (status == "gameOver") {
         setTimeout(function(){
@@ -249,7 +275,7 @@ function finalPartida(status) {
                 e.preventDefault();
                 location.reload();
             });
-        }, 1600);
+        }, 1500);
 
     } else{
         setTimeout(function(){
@@ -275,6 +301,6 @@ function finalPartida(status) {
                 e.preventDefault();
                 location.reload();
             });
-        }, 1600);
+        }, 1500);
     }
 }
