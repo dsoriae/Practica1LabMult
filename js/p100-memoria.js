@@ -3,6 +3,7 @@ var nFiles, nColumnes;
 var arrayCartes = [];
 var cartasJuego = [];
 var clicks;
+var final = false;
 var soGirarCarta = new Audio("audio/efecteGirarCarta.mp3");
 var soCartaCorrecta = new Audio("audio/efecteCartesCorrectes.mp3");
 var soCartaIncorrecta = new Audio("audio/efecteCartesIncorrectes.mp3");
@@ -134,8 +135,6 @@ function mostrarCartas() {
 function funcionOnClick(cartasGiradas) {
     $(".carta").on("click",function(){
         soGirarCarta.play();
-
-        contadorClicks();
         
         let idCarta = $(this).find(".davant").attr("id");
         if (!$(this).hasClass("carta-girada") && cartasGiradas.length < 2) {
@@ -161,6 +160,10 @@ function funcionOnClick(cartasGiradas) {
                 }, 700);
             }
             cartasGiradas = [];
+        }
+
+        if (!final) {
+            contadorClicks();
         }
     });
 }
@@ -188,6 +191,7 @@ function vaciarCartasDeArray(idCarta) {
     cartasJuego = cartasJuego.filter(value=>value!=null);
 
     if (cartasJuego.length === 0) {
+        final = true;
         finalPartida();     
     }
 }
@@ -220,7 +224,7 @@ function finalPartida(status) {
                 e.preventDefault();
                 location.reload();
             });
-        }, 1600);
+        }, 1200);
 
     } else{
         setTimeout(function(){
@@ -246,7 +250,7 @@ function finalPartida(status) {
                 e.preventDefault();
                 location.reload();
             });
-        }, 1600);
+        }, 1200);
     }
 }
 
