@@ -6,8 +6,8 @@ var clicks;
 var soGirarCarta = new Audio("audio/efecteGirarCarta.mp3");
 var soCartaCorrecta = new Audio("audio/efecteCartesCorrectes.mp3");
 var soCartaIncorrecta = new Audio("audio/efecteCartesIncorrectes.mp3");
-/*var soGirarCarta = new Audio("audio/efecteGirarCarta.mp3");
-var soGirarCarta = new Audio("audio/efecteGirarCarta.mp3");*/
+var soVictoria = new Audio("audio/efecteVictoria.mp3");
+var soDerrota = new Audio("audio/efecteDerrota.mp3");
 
 $(function(){
 
@@ -176,7 +176,13 @@ function contadorClicks() {
     clicks--;
     $('#count').html(clicks);
     if (clicks == 0) {
-        finalPartida("gameOver");
+        setTimeout(function() {
+            soDerrota.play();
+            finalPartida("gameOver");
+            soDerrota.onended = function() {
+                soDerrota.pause();
+            };
+        }, 3000);
     }
 }
 
@@ -190,7 +196,13 @@ function vaciarCartasDeArray(idCarta) {
     cartasJuego = cartasJuego.filter(value=>value!=null);
 
     if (cartasJuego.length === 0) {
-        finalPartida();     
+        setTimeout(function() {
+            soVictoria.play();
+            finalPartida();
+            soVictoria.onended = function() {
+                soVictoria.pause();
+            };
+        }, 1000);     
     }
 }
 
