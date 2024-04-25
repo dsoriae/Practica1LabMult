@@ -49,7 +49,7 @@ function mostrarInicio() {
 }
 
 function cargarArrayCartas() {
-    for (let i = 0; i < 33; i++) {
+    for (let i = 0; i <= 52; i++) {
         arrayCartes[i] = 'carta'+i;
     }
 }
@@ -94,7 +94,6 @@ function barajarCartas() { //Barreja les cartes per tenir un ordre aleatori
         index--;
         [arrayCartes[index], arrayCartes[rnd]] = [arrayCartes[rnd], arrayCartes[index]];
     }
-    //arrayCartes = arrayCartes.filter(value=>value!=undefined);
 }
 
 function random(carta, divCartas) {
@@ -150,7 +149,8 @@ function mostrarCartas() {
     //Quan tenim totes les cartes en el tauler, mostrem el timer i el posem en marxa.
     timer(totalCartas);
     mostrarContadorClicks(totalCartas);
-    console.log(arrayCartes)
+    
+    console.log(cartasJuego)
 }
 
 function funcionOnClick(cartasGiradas) {
