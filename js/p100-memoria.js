@@ -3,6 +3,12 @@ var nFiles, nColumnes;
 var arrayCartes = [];
 var cartasJuego = [];
 var clicks;
+var final = false;
+var soGirarCarta = new Audio("audio/efecteGirarCarta.mp3");
+var soCartaCorrecta = new Audio("audio/efecteCartesCorrectes.mp3");
+var soCartaIncorrecta = new Audio("audio/efecteCartesIncorrectes.mp3");
+var soVictoria = new Audio("audio/efecteVictoria.mp3");
+var soDerrota = new Audio("audio/efecteDerrota.mp3");
 
 $(function(){
 
@@ -128,8 +134,9 @@ function mostrarCartas() {
 
 function funcionOnClick(cartasGiradas) {
     $(".carta").on("click",function(){
-        contadorClicks();
-        let idCarta = $(this).find(".davant").attr("id")
+        soGirarCarta.play();
+        
+        let idCarta = $(this).find(".davant").attr("id");
         if (!$(this).hasClass("carta-girada") && cartasGiradas.length < 2) {
             $(this).toggleClass("carta-girada");
             cartasGiradas.push(idCarta);
@@ -138,20 +145,25 @@ function funcionOnClick(cartasGiradas) {
         if (cartasGiradas.length == 2) {
             if (cartasGiradas[0] == cartasGiradas[1]) {
                 setTimeout(function() {
+                    soCartaCorrecta.play();
                     $(".carta-girada").fadeOut(function(){
                         $(this).hide();
                     });
-                    
-                }, 500);
+                }, 700);
 
                 vaciarCartasDeArray(idCarta);
                 
             } else{
                 setTimeout(function() {
+                    soCartaIncorrecta.play();
                     $(".carta-girada").removeClass("carta-girada");
-                }, 500);
+                }, 700);
             }
             cartasGiradas = [];
+        }
+
+        if (!final) {
+            contadorClicks();
         }
     });
 }
@@ -162,10 +174,9 @@ function mostrarContadorClicks(cartas) {
 }
 
 function contadorClicks() {
-    console.log(clicks);
     clicks--;
     $('#count').html(clicks);
-    if (clicks == 0) {
+    if (clicks === 0) {
         finalPartida("gameOver");
     }
 }
@@ -180,27 +191,66 @@ function vaciarCartasDeArray(idCarta) {
     cartasJuego = cartasJuego.filter(value=>value!=null);
 
     if (cartasJuego.length === 0) {
+        final = true;
         finalPartida();     
     }
 }
 
 function finalPartida(status) {
+    setTimeout(function(){
+        $('#tauler').html('');
+        $('#tauler').hide();
+    }, 1600);
+    
     if (status == "gameOver") {
-        setTimeout(function() {
-            $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
-            $('.volverAJugar').click(function (e) {
+        setTimeout(function(){
+            soDerrota.play();
+            soDerrota.onended = function() {
+                soDerrota.pause();
+            };
+            $('#contador').hide();
+            $('#timer').hide();
+            $('footer').append(
+                '<h3>HAS PERDUT :( </h3>'+
+                '<h4>Vols tornar a jugar?</h4>'+
+                '<button id="volverAJugar" class="button-4-pushable">'+
+                    '<span id="volverAJugar" class="button-4-shadow"></span>'+
+                    '<span id="volverAJugar" class="button-4-edge"></span>'+
+                    '<span id="volverAJugar" class="button-4-front text">'+
+                        'Tornar a jugar!'+
+                    '</span>'+
+                '</button>');
+            $('#volverAJugar').click(function (e) {
                 e.preventDefault();
                 location.reload();
             });
-        }, 1000);
+        }, 1200);
+
     } else{
-        setTimeout(function() {
-            $('footer').append('<h4>El Joc ha acabat! Vols tornar a jugar?</h4><button class="volverAJugar">Tornar a jugar!</button>');
-            $('.volverAJugar').click(function (e) {
+        setTimeout(function(){
+            soVictoria.play();
+            soVictoria.onended = function() {
+                soVictoria.pause();
+            };
+            $('#tauler').hide();
+            $('#contador').hide();
+            $('#timer').hide();
+            $('footer').append(
+                '<h3>HAS GUANYAT!</h3>'+
+                '<h4>Vols tornar a jugar?</h4>'+
+                '<button id="volverAJugar" class="button-4-pushable">'+
+                    '<span id="volverAJugar" class="button-4-shadow"></span>'+
+                    '<span id="volverAJugar" class="button-4-edge"></span>'+
+                    '<span id="volverAJugar" class="button-4-front text">'+
+                        'Tornar a jugar!'+
+                    '</span>'+
+                '</button>');
+
+            $('#volverAJugar').click(function (e) {
                 e.preventDefault();
                 location.reload();
             });
-        }, 1000);
+        }, 1200);
     }
 }
 
