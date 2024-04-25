@@ -15,7 +15,7 @@ $(function(){
     $('#tauler').hide();
     mostrarInicio();
     cargarArrayCartas();
-    pedirMedidasTablero();
+    pedirYmostrarCartas();
     
 });
 
@@ -54,7 +54,7 @@ function cargarArrayCartas() {
     }
 }
 
-function pedirMedidasTablero() {
+function pedirYmostrarCartas() {
     $('.btnMedida').click(function (e) {
         e.preventDefault();
         mostrarTablero(e.target.id);
@@ -90,6 +90,31 @@ function mostrarTablero(medida) {
 function timer() {
     $('#timer').html('');
     $('#timer').append('<h3>00:00</h3>');
+}
+
+function barajarCartas() { //Barreja les cartes per tenir un ordre aleatori
+    let index = arrayCartes.length;
+    while (index != 0) {
+        let rnd = Math.floor(Math.random() * index + 1);
+        index--;
+        [arrayCartes[index], arrayCartes[rnd]] = [arrayCartes[rnd], arrayCartes[index]];
+    }
+    arrayCartes = arrayCartes.filter(value=>value!=undefined);
+}
+
+function random(carta, divCartas) {
+    //agafem un numero aleatori de l'array ja barrejada.
+    let rnd = Math.floor((Math.random() * divCartas) + 1);
+    //mirem si aquest número ja està en l'array definitiu del joc.
+    let valores = cartasJuego.filter(value=>value===arrayCartes[rnd]);
+    //Volem que cada número estigui repetit dues vegades.
+    if (valores.length<2) {
+        cartasJuego.push(arrayCartes[rnd]);
+        carta.find(".davant").addClass(arrayCartes[rnd]);
+        carta.find(".davant").attr('id',arrayCartes[rnd]);
+    } else{  //Si ja està dos vegades no el tornem a posar. I tornem a cridar la funció aplicant recursivitat
+        random(carta, divCartas);
+    }
 }
 
 function mostrarCartas() {
@@ -192,7 +217,7 @@ function vaciarCartasDeArray(idCarta) {
 
     if (cartasJuego.length === 0) {
         final = true;
-        finalPartida();     
+        finalPartida();
     }
 }
 
@@ -224,7 +249,7 @@ function finalPartida(status) {
                 e.preventDefault();
                 location.reload();
             });
-        }, 1200);
+        }, 1600);
 
     } else{
         setTimeout(function(){
@@ -250,31 +275,6 @@ function finalPartida(status) {
                 e.preventDefault();
                 location.reload();
             });
-        }, 1200);
-    }
-}
-
-function barajarCartas() { //Barreja les cartes per tenir un ordre aleatori
-    let index = arrayCartes.length;
-    while (index != 0) {
-        let rnd = Math.floor(Math.random() * index + 1);
-        index--;
-        [arrayCartes[index], arrayCartes[rnd]] = [arrayCartes[rnd], arrayCartes[index]];
-    }
-    arrayCartes = arrayCartes.filter(value=>value!=undefined);
-}
-
-function random(carta, divCartas) {
-    //agafem un numero aleatori de l'array ja barrejada.
-    let rnd = Math.floor((Math.random() * divCartas) + 1);
-    //mirem si aquest número ja està en l'array definitiu del joc.
-    let valores = cartasJuego.filter(value=>value===arrayCartes[rnd]);
-    //Volem que cada número estigui repetit dues vegades.
-    if (valores.length<2) {
-        cartasJuego.push(arrayCartes[rnd]);
-        carta.find(".davant").addClass(arrayCartes[rnd]);
-        carta.find(".davant").attr('id',arrayCartes[rnd]);
-    } else{  //Si ja està dos vegades no el tornem a posar. I tornem a cridar la funció aplicant recursivitat
-        random(carta, divCartas);
+        }, 1600);
     }
 }
